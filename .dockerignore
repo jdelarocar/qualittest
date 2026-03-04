@@ -1,0 +1,44 @@
+# Node modules
+node_modules/
+client/node_modules/
+
+# Environment files
+.env
+.env.local
+.env.docker
+
+# Git
+.git/
+.gitignore
+
+# Documentation
+README.md
+QUICKSTART.md
+DEPLOYMENT.md
+PROJECT_SUMMARY.md
+*.md
+
+# Build files
+client/build/
+build/
+
+# Logs
+logs/
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Testing
+coverage/
+.nyc_output/
+
+# Misc
+temp/
+tmp/
+backups/
