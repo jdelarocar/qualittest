@@ -98,8 +98,12 @@ const RegistrationRequest = () => {
   const validateStep = () => {
     if (activeStep === 0) {
       if (!formData.lab_name || !formData.lab_email || !formData.lab_address ||
-          !formData.lab_department || !formData.lab_phone || !formData.participation_option_id) {
+          !formData.lab_department || !formData.lab_phone) {
         setError('Por favor complete todos los campos obligatorios');
+        return false;
+      }
+      if (!formData.participation_option_id || formData.participation_option_id === '') {
+        setError('Debe seleccionar una opción de participación');
         return false;
       }
       if (!/\S+@\S+\.\S+/.test(formData.lab_email)) {
@@ -302,7 +306,7 @@ const RegistrationRequest = () => {
                     >
                       {participationOptions.map((option) => (
                         <MenuItem key={option.id} value={option.id}>
-                          {option.name} - Q{option.price.toFixed(2)} ({option.type === 'open' ? 'Abierto' : 'Cerrado'})
+                          {option.name} - Q{parseFloat(option.price).toFixed(2)} ({option.type === 'open' ? 'Abierto' : 'Cerrado'})
                         </MenuItem>
                       ))}
                     </Select>
