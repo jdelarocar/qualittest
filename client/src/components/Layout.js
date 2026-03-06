@@ -27,6 +27,8 @@ import {
   Settings as SettingsIcon,
   Logout as LogoutIcon,
   AccountCircle,
+  Assignment as AssignmentIcon,
+  Category as CategoryIcon,
 } from '@mui/icons-material';
 import { useAuth } from '../context/AuthContext';
 import { colors } from '../theme';
@@ -35,6 +37,8 @@ const drawerWidth = 260;
 
 const menuItems = [
   { text: 'Dashboard', icon: <DashboardIcon />, path: '/dashboard' },
+  { text: 'Solicitudes', icon: <AssignmentIcon />, path: '/admin/requests', adminOnly: true },
+  { text: 'Opciones de Participación', icon: <CategoryIcon />, path: '/admin/participation-options', adminOnly: true },
   { text: 'Configuración', icon: <SettingsIcon />, path: '/parameters' },
   { text: 'Envío de Resultados', icon: <ScienceIcon />, path: '/results' },
   { text: 'Estadísticas', icon: <AssessmentIcon />, path: '/statistics' },
@@ -111,24 +115,26 @@ const Layout = () => {
       <Divider />
 
       <List sx={{ px: 1, py: 2 }}>
-        {menuItems.map((item) => (
-          <ListItem key={item.text} disablePadding sx={{ mb: 0.5 }}>
-            <ListItemButton
-              onClick={() => handleNavigate(item.path)}
-              sx={{
-                borderRadius: 2,
-                '&:hover': {
-                  bgcolor: colors.grayBlue,
-                },
-              }}
-            >
-              <ListItemIcon sx={{ color: colors.navyBlue }}>
-                {item.icon}
-              </ListItemIcon>
-              <ListItemText primary={item.text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
+        {menuItems
+          .filter(item => !item.adminOnly || user?.role === 'admin')
+          .map((item) => (
+            <ListItem key={item.text} disablePadding sx={{ mb: 0.5 }}>
+              <ListItemButton
+                onClick={() => handleNavigate(item.path)}
+                sx={{
+                  borderRadius: 2,
+                  '&:hover': {
+                    bgcolor: colors.grayBlue,
+                  },
+                }}
+              >
+                <ListItemIcon sx={{ color: colors.navyBlue }}>
+                  {item.icon}
+                </ListItemIcon>
+                <ListItemText primary={item.text} />
+              </ListItemButton>
+            </ListItem>
+          ))}
       </List>
     </Box>
   );

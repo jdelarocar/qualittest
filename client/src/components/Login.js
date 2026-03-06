@@ -119,10 +119,18 @@ const Login = () => {
             </form>
 
             <Box sx={{ mt: 3, textAlign: 'center' }}>
+              <Button
+                fullWidth
+                variant="outlined"
+                onClick={() => navigate('/register')}
+                sx={{ mb: 2 }}
+              >
+                Solicitar Registro
+              </Button>
               <Typography variant="caption" color="text.secondary">
-                Para obtener su código y contraseña, contacte a QUALITTEST
+                ¿Ya tiene credenciales? Ingrese arriba
               </Typography>
-              <Typography variant="caption" display="block" color="text.secondary">
+              <Typography variant="caption" display="block" color="text.secondary" sx={{ mt: 1 }}>
                 Tel: 2448-2502 | Email: info@qualittest.org
               </Typography>
             </Box>

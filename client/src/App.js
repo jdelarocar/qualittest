@@ -12,6 +12,9 @@ import Dashboard from './components/Dashboard';
 import Parameters from './components/Parameters';
 import ResultsEntry from './components/ResultsEntry';
 import Statistics from './components/Statistics';
+import RegistrationRequest from './components/public/RegistrationRequest';
+import RequestsList from './components/admin/RequestsList';
+import ParticipationOptions from './components/admin/ParticipationOptions';
 
 // Protected Route Component
 const ProtectedRoute = ({ children }) => {
@@ -59,6 +62,7 @@ function App() {
                 </PublicRoute>
               }
             />
+            <Route path="/register" element={<RegistrationRequest />} />
 
             {/* Protected Routes */}
             <Route
@@ -75,6 +79,8 @@ function App() {
               <Route path="results" element={<Dashboard />} />
               <Route path="results/:shipmentId" element={<ResultsEntry />} />
               <Route path="statistics" element={<Statistics />} />
+              <Route path="admin/requests" element={<RequestsList />} />
+              <Route path="admin/participation-options" element={<ParticipationOptions />} />
             </Route>
 
             {/* Fallback */}

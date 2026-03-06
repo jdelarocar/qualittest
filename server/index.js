@@ -18,6 +18,8 @@ app.use('/api/parameters', require('./routes/parameters'));
 app.use('/api/shipments', require('./routes/shipments'));
 app.use('/api/results', require('./routes/results'));
 app.use('/api/statistics', require('./routes/statistics'));
+app.use('/api/register-request', require('./routes/registrationRequests'));
+app.use('/api/participation-options', require('./routes/participationOptions'));
 
 // Health check
 app.get('/api/health', (req, res) => {
