@@ -15,6 +15,8 @@ import Statistics from './components/Statistics';
 import RegistrationRequest from './components/public/RegistrationRequest';
 import RequestsList from './components/admin/RequestsList';
 import ParticipationOptions from './components/admin/ParticipationOptions';
+import Providers from './components/admin/Providers';
+import Users from './components/admin/Users';
 
 // Protected Route Component
 const ProtectedRoute = ({ children }) => {
@@ -81,6 +83,8 @@ function App() {
               <Route path="statistics" element={<Statistics />} />
               <Route path="admin/requests" element={<RequestsList />} />
               <Route path="admin/participation-options" element={<ParticipationOptions />} />
+              <Route path="admin/providers" element={<Providers />} />
+              <Route path="admin/users" element={<Users />} />
             </Route>
 
             {/* Fallback */}

@@ -29,6 +29,8 @@ import {
   AccountCircle,
   Assignment as AssignmentIcon,
   Category as CategoryIcon,
+  Business as BusinessIcon,
+  People as PeopleIcon,
 } from '@mui/icons-material';
 import { useAuth } from '../context/AuthContext';
 import { colors } from '../theme';
@@ -39,6 +41,8 @@ const menuItems = [
   { text: 'Dashboard', icon: <DashboardIcon />, path: '/dashboard' },
   { text: 'Solicitudes', icon: <AssignmentIcon />, path: '/admin/requests', adminOnly: true },
   { text: 'Opciones de Participación', icon: <CategoryIcon />, path: '/admin/participation-options', adminOnly: true },
+  { text: 'Proveedores', icon: <BusinessIcon />, path: '/admin/providers', adminOnly: true },
+  { text: 'Usuarios', icon: <PeopleIcon />, path: '/admin/users', adminOnly: true },
   { text: 'Configuración', icon: <SettingsIcon />, path: '/parameters' },
   { text: 'Envío de Resultados', icon: <ScienceIcon />, path: '/results' },
   { text: 'Estadísticas', icon: <AssessmentIcon />, path: '/statistics' },

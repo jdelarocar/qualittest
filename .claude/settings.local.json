@@ -10,7 +10,10 @@
       "Bash(docker exec:*)",
       "Bash(docker ps:*)",
       "Bash(chmod:*)",
-      "Bash(git config:*)"
+      "Bash(git config:*)",
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$(cat <<''EOF''\nAdd Phase 2: Providers and Users Management\n\nNew Features:\n- Providers CRUD module with search functionality\n- Users management with role filtering and password reset\n- Enhanced user tracking (created_by, updated_by, password_changed_at)\n\nBackend Changes:\n- New API endpoints for providers (/api/providers/admin)\n- New API endpoints for users management (/api/users/admin)\n- Database schema updates (providers table, users enhancements)\n\nFrontend Changes:\n- Providers.js: Complete CRUD interface with search\n- Users.js: User management with role filtering, tabs, password reset\n- Updated App.js with new routes\n- Updated Layout.js with Phase 2 menu items (Proveedores, Usuarios)\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")",
+      "Bash(git push:*)"
     ],
     "deny": [],
     "ask": []
