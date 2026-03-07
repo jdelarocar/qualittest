@@ -102,7 +102,7 @@ const RegistrationRequest = () => {
         setError('Por favor complete todos los campos obligatorios');
         return false;
       }
-      if (!formData.participation_option_id || formData.participation_option_id === '') {
+      if (!formData.participation_option_id) {
         setError('Debe seleccionar una opción de participación');
         return false;
       }
@@ -300,13 +300,13 @@ const RegistrationRequest = () => {
                     <InputLabel>Opción de Participación</InputLabel>
                     <Select
                       name="participation_option_id"
-                      value={formData.participation_option_id}
+                      value={formData.participation_option_id || ''}
                       onChange={handleChange}
                       label="Opción de Participación"
                     >
                       {participationOptions.map((option) => (
                         <MenuItem key={option.id} value={option.id}>
-                          {option.name} - Q{parseFloat(option.price).toFixed(2)} ({option.type === 'open' ? 'Abierto' : 'Cerrado'})
+                          {option.name} - Q{parseFloat(option.price).toFixed(2)}
                         </MenuItem>
                       ))}
                     </Select>
