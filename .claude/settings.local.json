@@ -20,7 +20,10 @@
       "Bash(npm run build:*)",
       "Bash(git restore:*)",
       "Bash(git reset:*)",
-      "Bash(git commit:*)"
+      "Bash(git commit:*)",
+      "Bash(curl:*)",
+      "Bash(railway logs:*)",
+      "Bash(mysql:*)"
     ],
     "deny": [],
     "ask": []

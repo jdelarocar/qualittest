@@ -189,8 +189,6 @@ const Users = () => {
     return labels[role] || role;
   };
 
-  const { canCreate, canEdit, canDelete } = usePermissions();
-
   return (
     <Box>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 3 }}>
