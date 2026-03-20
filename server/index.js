@@ -41,6 +41,9 @@ app.use('/api/control-samples', require('./routes/controlSamples'));
 app.use('/api/laboratory-results', require('./routes/laboratoryResults'));
 app.use('/api/statistics/admin', require('./routes/statisticsAdmin'));
 
+// Phase 6: Permissions System
+app.use('/api/permissions', require('./routes/permissions'));
+
 // Health check
 app.get('/api/health', (req, res) => {
   res.json({ status: 'OK', message: 'PEEC System API is running' });

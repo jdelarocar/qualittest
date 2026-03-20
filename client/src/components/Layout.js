@@ -48,6 +48,7 @@ const menuItems = [
   { text: 'Opciones de Participación', icon: <CategoryIcon />, path: '/admin/participation-options', adminOnly: true },
   { text: 'Proveedores', icon: <BusinessIcon />, path: '/admin/providers', adminOnly: true },
   { text: 'Usuarios', icon: <PeopleIcon />, path: '/admin/users', adminOnly: true },
+  { text: 'Permisos', icon: <SettingsIcon />, path: '/admin/permissions', adminOnly: true },
   {
     text: 'Parámetros',
     icon: <BiotechIcon />,

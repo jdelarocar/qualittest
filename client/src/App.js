@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { AuthProvider, useAuth } from './context/AuthContext';
+import { PermissionsProvider } from './context/PermissionsContext';
 import theme from './theme';
 
 // Components
@@ -23,6 +24,7 @@ import GenericParameter from './components/admin/GenericParameter';
 import Reagents from './components/admin/Reagents';
 import ControlSamples from './components/admin/ControlSamples';
 import ShipmentsAdmin from './components/admin/ShipmentsAdmin';
+import PermissionsManagement from './components/admin/PermissionsManagement';
 
 // Protected Route Component
 const ProtectedRoute = ({ children }) => {
@@ -59,7 +61,8 @@ function App() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <AuthProvider>
-        <BrowserRouter>
+        <PermissionsProvider>
+          <BrowserRouter>
           <Routes>
             {/* Public Routes */}
             <Route
@@ -92,6 +95,7 @@ function App() {
               <Route path="admin/participation-options" element={<ParticipationOptions />} />
               <Route path="admin/providers" element={<Providers />} />
               <Route path="admin/users" element={<Users />} />
+              <Route path="admin/permissions" element={<PermissionsManagement />} />
               <Route path="admin/instruments" element={<GenericParameter title="Instrumentos" apiEndpoint="instruments" fieldName="name" fieldLabel="Nombre" />} />
               <Route path="admin/brands" element={<GenericParameter title="Marcas" apiEndpoint="brands" fieldName="name" fieldLabel="Nombre" />} />
               <Route path="admin/principles" element={<GenericParameter title="Principios" apiEndpoint="principles" fieldName="name" fieldLabel="Nombre" />} />
@@ -108,6 +112,7 @@ function App() {
             <Route path="*" element={<Navigate to="/dashboard" replace />} />
           </Routes>
         </BrowserRouter>
+        </PermissionsProvider>
       </AuthProvider>
     </ThemeProvider>
   );

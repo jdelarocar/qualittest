@@ -14,6 +14,8 @@ import {
   LockReset as ResetIcon,
 } from '@mui/icons-material';
 import axios from 'axios';
+import PermissionGuard from '../common/PermissionGuard';
+import { usePermissions } from '../../context/PermissionsContext';
 
 const Users = () => {
   const [users, setUsers] = useState([]);
@@ -187,15 +189,19 @@ const Users = () => {
     return labels[role] || role;
   };
 
+  const { canCreate, canEdit, canDelete } = usePermissions();
+
   return (
     <Box>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 3 }}>
         <Typography variant="h4" fontWeight="600">
           Usuarios
         </Typography>
-        <Button variant="contained" startIcon={<AddIcon />} onClick={() => handleOpenDialog()}>
-          Nuevo Usuario
-        </Button>
+        <PermissionGuard module="users" action="create">
+          <Button variant="contained" startIcon={<AddIcon />} onClick={() => handleOpenDialog()}>
+            Nuevo Usuario
+          </Button>
+        </PermissionGuard>
       </Box>
 
       {error && <Alert severity="error" sx={{ mb: 2 }} onClose={() => setError('')}>{error}</Alert>}
@@ -270,15 +276,21 @@ const Users = () => {
                           />
                         </TableCell>
                         <TableCell>
-                          <IconButton size="small" onClick={() => handleOpenDialog(user)}>
-                            <EditIcon fontSize="small" />
-                          </IconButton>
-                          <IconButton size="small" color="primary" onClick={() => handleOpenPasswordDialog(user.id)}>
-                            <ResetIcon fontSize="small" />
-                          </IconButton>
-                          <IconButton size="small" color="error" onClick={() => handleDelete(user.id)}>
-                            <DeleteIcon fontSize="small" />
-                          </IconButton>
+                          <PermissionGuard module="users" action="edit" showTooltip>
+                            <IconButton size="small" onClick={() => handleOpenDialog(user)}>
+                              <EditIcon fontSize="small" />
+                            </IconButton>
+                          </PermissionGuard>
+                          <PermissionGuard module="users" action="edit" showTooltip>
+                            <IconButton size="small" color="primary" onClick={() => handleOpenPasswordDialog(user.id)}>
+                              <ResetIcon fontSize="small" />
+                            </IconButton>
+                          </PermissionGuard>
+                          <PermissionGuard module="users" action="delete" showTooltip>
+                            <IconButton size="small" color="error" onClick={() => handleDelete(user.id)}>
+                              <DeleteIcon fontSize="small" />
+                            </IconButton>
+                          </PermissionGuard>
                         </TableCell>
                       </TableRow>
                     ))
