@@ -17,15 +17,22 @@ router.get('/shipments/available', authMiddleware, async (req, res) => {
 
     // Get laboratory_id from user
     const [userRows] = await db.query(
-      'SELECT laboratory_id FROM users WHERE id = ?',
+      'SELECT laboratory_id, role FROM users WHERE id = ?',
       [userId]
     );
 
-    if (!userRows.length || !userRows[0].laboratory_id) {
+    if (!userRows.length) {
+      return res.status(403).json({ message: 'User not found' });
+    }
+
+    const user = userRows[0];
+
+    // If user is not associated with a laboratory and is not admin, deny access
+    if (!user.laboratory_id && user.role !== 'admin') {
       return res.status(403).json({ message: 'User is not associated with a laboratory' });
     }
 
-    const laboratoryId = userRows[0].laboratory_id;
+    const laboratoryId = user.laboratory_id;
 
     // Get available shipments (active or within submission period)
     const [shipments] = await db.query(`
@@ -41,7 +48,7 @@ router.get('/shipments/available', authMiddleware, async (req, res) => {
         cs.name as control_sample_name,
         cs.lot_number,
         CASE
-          WHEN EXISTS (
+          WHEN ? IS NOT NULL AND EXISTS (
             SELECT 1 FROM laboratory_results lr
             WHERE lr.shipment_id = s.id AND lr.laboratory_id = ?
           ) THEN TRUE
@@ -53,7 +60,7 @@ router.get('/shipments/available', authMiddleware, async (req, res) => {
       WHERE s.status IN ('active', 'pending')
         OR (s.status = 'closed' AND s.report_generated = FALSE)
       ORDER BY s.year DESC, s.month DESC, s.start_date DESC
-    `, [laboratoryId]);
+    `, [laboratoryId, laboratoryId]);
 
     res.json(shipments);
   } catch (error) {
