@@ -330,7 +330,7 @@ const ControlSamples = () => {
         <DialogTitle>{editingId ? 'Editar' : 'Nueva'} Muestra Control</DialogTitle>
         <DialogContent>
           <Grid container spacing={2} sx={{ mt: 1 }}>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12}>
               <FormControl fullWidth required>
                 <InputLabel>Programa</InputLabel>
                 <Select
@@ -346,16 +346,16 @@ const ControlSamples = () => {
                 </Select>
               </FormControl>
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12}>
               <TextField
                 fullWidth
                 required
-                label="Nombre"
+                label="Nombre de la Muestra"
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
               />
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12}>
               <TextField
                 fullWidth
                 label="Número de Lote"
@@ -363,7 +363,7 @@ const ControlSamples = () => {
                 onChange={(e) => setFormData({ ...formData, lot_number: e.target.value })}
               />
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12}>
               <TextField
                 fullWidth
                 type="date"
@@ -396,7 +396,17 @@ const ControlSamples = () => {
               {formData.values.map((value, index) => (
                 <Card key={index} sx={{ mb: 2, p: 2, bgcolor: 'grey.50' }}>
                   <Grid container spacing={2}>
-                    <Grid item xs={12} sm={6}>
+                    <Grid item xs={12}>
+                      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <Typography variant="subtitle2" color="primary">
+                          Analito #{index + 1}
+                        </Typography>
+                        <IconButton color="error" size="small" onClick={() => handleRemoveValue(index)}>
+                          <RemoveCircleIcon />
+                        </IconButton>
+                      </Box>
+                    </Grid>
+                    <Grid item xs={12}>
                       <FormControl fullWidth required>
                         <InputLabel>Analito</InputLabel>
                         <Select
@@ -412,13 +422,13 @@ const ControlSamples = () => {
                         </Select>
                       </FormControl>
                     </Grid>
-                    <Grid item xs={12} sm={6}>
+                    <Grid item xs={12}>
                       <FormControl fullWidth>
-                        <InputLabel>Principio</InputLabel>
+                        <InputLabel>Principio Metodológico</InputLabel>
                         <Select
                           value={value.principle_id}
                           onChange={(e) => handleValueChange(index, 'principle_id', e.target.value)}
-                          label="Principio"
+                          label="Principio Metodológico"
                         >
                           <MenuItem value="">Ninguno</MenuItem>
                           {principles.map((principle) => (
@@ -429,59 +439,54 @@ const ControlSamples = () => {
                         </Select>
                       </FormControl>
                     </Grid>
-                    <Grid item xs={6} sm={3}>
+                    <Grid item xs={12}>
                       <FormControl fullWidth>
-                        <InputLabel>Tipo</InputLabel>
+                        <InputLabel>Tipo de Dato</InputLabel>
                         <Select
                           value={value.data_type}
                           onChange={(e) => handleValueChange(index, 'data_type', e.target.value)}
-                          label="Tipo"
+                          label="Tipo de Dato"
                         >
                           <MenuItem value="numeric">Numérico</MenuItem>
                           <MenuItem value="alphanumeric">Alfanumérico</MenuItem>
                         </Select>
                       </FormControl>
                     </Grid>
-                    <Grid item xs={6} sm={3}>
+                    <Grid item xs={12}>
                       <TextField
                         fullWidth
-                        label="Unidad"
+                        label="Unidad de Medida"
                         value={value.unit}
                         onChange={(e) => handleValueChange(index, 'unit', e.target.value)}
                       />
                     </Grid>
-                    <Grid item xs={12} sm={4}>
+                    <Grid item xs={12}>
                       <TextField
                         fullWidth
-                        label="Valor Referencia"
+                        label="Valor de Referencia"
                         value={value.reference_value}
                         onChange={(e) => handleValueChange(index, 'reference_value', e.target.value)}
                       />
                     </Grid>
-                    <Grid item xs={12} sm={4}>
+                    <Grid item xs={12}>
                       <TextField
                         fullWidth
                         type="number"
-                        label="Límite Inferior"
+                        label="Límite Inferior Mínimo"
                         value={value.lower_limit}
                         onChange={(e) => handleValueChange(index, 'lower_limit', e.target.value)}
                         disabled={value.data_type === 'alphanumeric'}
                       />
                     </Grid>
-                    <Grid item xs={12} sm={3}>
+                    <Grid item xs={12}>
                       <TextField
                         fullWidth
                         type="number"
-                        label="Límite Superior"
+                        label="Límite Superior Máximo"
                         value={value.upper_limit}
                         onChange={(e) => handleValueChange(index, 'upper_limit', e.target.value)}
                         disabled={value.data_type === 'alphanumeric'}
                       />
-                    </Grid>
-                    <Grid item xs={12} sm={1}>
-                      <IconButton color="error" onClick={() => handleRemoveValue(index)}>
-                        <RemoveCircleIcon />
-                      </IconButton>
                     </Grid>
                   </Grid>
                 </Card>

@@ -219,12 +219,12 @@ const ParticipationOptions = () => {
               <TextField
                 fullWidth
                 required
-                label="Nombre"
+                label="Nombre de la Opción"
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
               />
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12}>
               <TextField
                 fullWidth
                 required
@@ -234,7 +234,7 @@ const ParticipationOptions = () => {
                 onChange={(e) => setFormData({ ...formData, price: e.target.value })}
               />
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12}>
               <FormControl fullWidth required>
                 <InputLabel>Tipo</InputLabel>
                 <Select

@@ -226,7 +226,7 @@ const Providers = () => {
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
               />
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12}>
               <TextField
                 fullWidth
                 required
@@ -235,7 +235,7 @@ const Providers = () => {
                 onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
               />
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12}>
               <TextField
                 fullWidth
                 label="Email"

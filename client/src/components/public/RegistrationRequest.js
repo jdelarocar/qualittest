@@ -236,7 +236,7 @@ const RegistrationRequest = () => {
                     onChange={handleChange}
                   />
                 </Grid>
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={12}>
                   <TextField
                     fullWidth
                     required
@@ -247,7 +247,7 @@ const RegistrationRequest = () => {
                     onChange={handleChange}
                   />
                 </Grid>
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={12}>
                   <TextField
                     fullWidth
                     required
@@ -267,7 +267,7 @@ const RegistrationRequest = () => {
                     onChange={handleChange}
                   />
                 </Grid>
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={12}>
                   <FormControl fullWidth required>
                     <InputLabel>País</InputLabel>
                     <Select
@@ -285,7 +285,7 @@ const RegistrationRequest = () => {
                     </Select>
                   </FormControl>
                 </Grid>
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={12}>
                   <TextField
                     fullWidth
                     required
@@ -349,7 +349,7 @@ const RegistrationRequest = () => {
                     onChange={handleChange}
                   />
                 </Grid>
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={12}>
                   <TextField
                     fullWidth
                     required
@@ -360,7 +360,7 @@ const RegistrationRequest = () => {
                     onChange={handleChange}
                   />
                 </Grid>
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={12}>
                   <TextField
                     fullWidth
                     required
@@ -400,7 +400,7 @@ const RegistrationRequest = () => {
                     onChange={handleChange}
                   />
                 </Grid>
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={12}>
                   <TextField
                     fullWidth
                     label="Correo Electrónico"
@@ -410,7 +410,7 @@ const RegistrationRequest = () => {
                     onChange={handleChange}
                   />
                 </Grid>
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={12}>
                   <TextField
                     fullWidth
                     label="Teléfono"
@@ -435,7 +435,7 @@ const RegistrationRequest = () => {
                     onChange={handleChange}
                   />
                 </Grid>
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={12}>
                   <TextField
                     fullWidth
                     required
@@ -445,7 +445,7 @@ const RegistrationRequest = () => {
                     onChange={handleChange}
                   />
                 </Grid>
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={12}>
                   <TextField
                     fullWidth
                     required

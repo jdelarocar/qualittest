@@ -247,7 +247,7 @@ const Reagents = () => {
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
               />
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12}>
               <FormControl fullWidth>
                 <InputLabel>Marca</InputLabel>
                 <Select
@@ -264,7 +264,7 @@ const Reagents = () => {
                 </Select>
               </FormControl>
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12}>
               <FormControl fullWidth>
                 <InputLabel>Proveedor</InputLabel>
                 <Select

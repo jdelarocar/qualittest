@@ -308,14 +308,14 @@ const ShipmentsAdmin = () => {
               <TextField
                 fullWidth
                 required
-                label="Descripción"
+                label="Descripción del Envío"
                 value={formData.description}
                 onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                 multiline
                 rows={2}
               />
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12}>
               <TextField
                 fullWidth
                 required
@@ -326,12 +326,12 @@ const ShipmentsAdmin = () => {
                 InputLabelProps={{ shrink: true }}
               />
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12}>
               <TextField
                 fullWidth
                 required
                 type="date"
-                label="Fecha Máxima de Recepción"
+                label="Fecha Máxima de Recepción de Resultados"
                 value={formData.max_reception_date}
                 onChange={(e) => setFormData({ ...formData, max_reception_date: e.target.value })}
                 InputLabelProps={{ shrink: true }}

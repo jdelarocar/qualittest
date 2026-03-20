@@ -295,7 +295,7 @@ const Users = () => {
         <DialogTitle>{editingId ? 'Editar' : 'Nuevo'} Usuario</DialogTitle>
         <DialogContent>
           <Grid container spacing={2} sx={{ mt: 1 }}>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12}>
               <TextField
                 fullWidth
                 required
@@ -304,7 +304,7 @@ const Users = () => {
                 onChange={(e) => setFormData({ ...formData, username: e.target.value })}
               />
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12}>
               <FormControl fullWidth required>
                 <InputLabel>Rol</InputLabel>
                 <Select
