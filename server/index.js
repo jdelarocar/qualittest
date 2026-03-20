@@ -34,6 +34,9 @@ app.use('/api/temperatures', createParameterRouter('temperatures', 'value'));
 app.use('/api/wavelengths', createParameterRouter('wavelengths', 'value'));
 app.use('/api/reagents', require('./routes/reagents'));
 
+// Phase 4: Operations Module
+app.use('/api/control-samples', require('./routes/controlSamples'));
+
 // Health check
 app.get('/api/health', (req, res) => {
   res.json({ status: 'OK', message: 'PEEC System API is running' });
