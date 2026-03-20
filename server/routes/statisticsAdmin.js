@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../db');
-const { authenticateToken, requireRole } = require('../middleware/auth');
+const db = require('../config/database');
+const { authMiddleware } = require('../middleware/auth');
 const {
   calculateCompleteStatistics,
   calculateLaboratoryStatistics
@@ -12,7 +12,11 @@ const {
  * Calculate and store statistics for a shipment
  * (Called when generating/regenerating report)
  */
-router.post('/shipments/:shipmentId/calculate', authenticateToken, requireRole('admin'), async (req, res) => {
+router.post('/shipments/:shipmentId/calculate', authMiddleware, async (req, res) => {
+  // Check admin role
+  if (req.user.role !== 'admin') {
+    return res.status(403).json({ message: 'Acceso denegado' });
+  }
   const connection = await db.getConnection();
 
   try {
@@ -184,7 +188,11 @@ router.post('/shipments/:shipmentId/calculate', authenticateToken, requireRole('
  * GET /api/statistics/admin/shipments/:shipmentId
  * Get complete statistics for a shipment (admin view)
  */
-router.get('/shipments/:shipmentId', authenticateToken, requireRole('admin'), async (req, res) => {
+router.get('/shipments/:shipmentId', authMiddleware, async (req, res) => {
+  // Check admin role
+  if (req.user.role !== 'admin') {
+    return res.status(403).json({ message: 'Acceso denegado' });
+  }
   try {
     const { shipmentId } = req.params;
 
@@ -251,7 +259,11 @@ router.get('/shipments/:shipmentId', authenticateToken, requireRole('admin'), as
  * GET /api/statistics/admin/shipments/:shipmentId/analyte/:analyteId/chart-data
  * Get data for generating Levey-Jennings and other charts
  */
-router.get('/shipments/:shipmentId/analyte/:analyteId/chart-data', authenticateToken, requireRole('admin'), async (req, res) => {
+router.get('/shipments/:shipmentId/analyte/:analyteId/chart-data', authMiddleware, async (req, res) => {
+  // Check admin role
+  if (req.user.role !== 'admin') {
+    return res.status(403).json({ message: 'Acceso denegado' });
+  }
   try {
     const { shipmentId, analyteId } = req.params;
 

@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../db');
-const { authenticateToken, requireRole } = require('../middleware/auth');
+const db = require('../config/database');
+const { authMiddleware } = require('../middleware/auth');
 const {
   calculateCompleteStatistics,
   calculateLaboratoryStatistics
@@ -11,7 +11,7 @@ const {
  * GET /api/laboratory-results/shipments/available
  * Get available shipments for result submission (laboratory view)
  */
-router.get('/shipments/available', authenticateToken, async (req, res) => {
+router.get('/shipments/available', authMiddleware, async (req, res) => {
   try {
     const userId = req.user.id;
 
@@ -66,7 +66,7 @@ router.get('/shipments/available', authenticateToken, async (req, res) => {
  * GET /api/laboratory-results/shipments/:shipmentId/form
  * Get result entry form for a shipment
  */
-router.get('/shipments/:shipmentId/form', authenticateToken, async (req, res) => {
+router.get('/shipments/:shipmentId/form', authMiddleware, async (req, res) => {
   try {
     const { shipmentId } = req.params;
     const userId = req.user.id;
@@ -164,7 +164,7 @@ router.get('/shipments/:shipmentId/form', authenticateToken, async (req, res) =>
  * POST /api/laboratory-results/shipments/:shipmentId/submit
  * Submit or update results for a shipment
  */
-router.post('/shipments/:shipmentId/submit', authenticateToken, async (req, res) => {
+router.post('/shipments/:shipmentId/submit', authMiddleware, async (req, res) => {
   const connection = await db.getConnection();
 
   try {
@@ -248,7 +248,7 @@ router.post('/shipments/:shipmentId/submit', authenticateToken, async (req, res)
  * GET /api/laboratory-results/shipments/:shipmentId/statistics
  * Get calculated statistics for a shipment (for viewing by laboratories)
  */
-router.get('/shipments/:shipmentId/statistics', authenticateToken, async (req, res) => {
+router.get('/shipments/:shipmentId/statistics', authMiddleware, async (req, res) => {
   try {
     const { shipmentId } = req.params;
     const userId = req.user.id;
