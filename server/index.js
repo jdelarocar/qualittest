@@ -23,6 +23,17 @@ app.use('/api/participation-options', require('./routes/participationOptions'));
 app.use('/api/providers', require('./routes/providers'));
 app.use('/api/users', require('./routes/users'));
 
+// Phase 3: Parameters Module
+const createParameterRouter = require('./routes/parametersCRUD');
+app.use('/api/instruments', createParameterRouter('instruments', 'name'));
+app.use('/api/brands', createParameterRouter('brands', 'name'));
+app.use('/api/principles', createParameterRouter('principles', 'name'));
+app.use('/api/calibrations', createParameterRouter('calibrations', 'name'));
+app.use('/api/standards', createParameterRouter('standards', 'name'));
+app.use('/api/temperatures', createParameterRouter('temperatures', 'value'));
+app.use('/api/wavelengths', createParameterRouter('wavelengths', 'value'));
+app.use('/api/reagents', require('./routes/reagents'));
+
 // Health check
 app.get('/api/health', (req, res) => {
   res.json({ status: 'OK', message: 'PEEC System API is running' });

@@ -17,6 +17,8 @@ import RequestsList from './components/admin/RequestsList';
 import ParticipationOptions from './components/admin/ParticipationOptions';
 import Providers from './components/admin/Providers';
 import Users from './components/admin/Users';
+import GenericParameter from './components/admin/GenericParameter';
+import Reagents from './components/admin/Reagents';
 
 // Protected Route Component
 const ProtectedRoute = ({ children }) => {
@@ -85,6 +87,14 @@ function App() {
               <Route path="admin/participation-options" element={<ParticipationOptions />} />
               <Route path="admin/providers" element={<Providers />} />
               <Route path="admin/users" element={<Users />} />
+              <Route path="admin/instruments" element={<GenericParameter title="Instrumentos" apiEndpoint="instruments" fieldName="name" fieldLabel="Nombre" />} />
+              <Route path="admin/brands" element={<GenericParameter title="Marcas" apiEndpoint="brands" fieldName="name" fieldLabel="Nombre" />} />
+              <Route path="admin/principles" element={<GenericParameter title="Principios" apiEndpoint="principles" fieldName="name" fieldLabel="Nombre" />} />
+              <Route path="admin/calibrations" element={<GenericParameter title="Calibraciones" apiEndpoint="calibrations" fieldName="name" fieldLabel="Nombre" />} />
+              <Route path="admin/standards" element={<GenericParameter title="Estándares" apiEndpoint="standards" fieldName="name" fieldLabel="Nombre" />} />
+              <Route path="admin/temperatures" element={<GenericParameter title="Temperaturas" apiEndpoint="temperatures" fieldName="value" fieldLabel="Valor" />} />
+              <Route path="admin/wavelengths" element={<GenericParameter title="Longitudes de Onda" apiEndpoint="wavelengths" fieldName="value" fieldLabel="Valor" />} />
+              <Route path="admin/reagents" element={<Reagents />} />
             </Route>
 
             {/* Fallback */}

@@ -18,6 +18,7 @@ import {
   Divider,
   useMediaQuery,
   useTheme,
+  Collapse,
 } from '@mui/material';
 import {
   Menu as MenuIcon,
@@ -31,6 +32,9 @@ import {
   Category as CategoryIcon,
   Business as BusinessIcon,
   People as PeopleIcon,
+  ExpandLess,
+  ExpandMore,
+  Biotech as BiotechIcon,
 } from '@mui/icons-material';
 import { useAuth } from '../context/AuthContext';
 import { colors } from '../theme';
@@ -43,6 +47,21 @@ const menuItems = [
   { text: 'Opciones de Participación', icon: <CategoryIcon />, path: '/admin/participation-options', adminOnly: true },
   { text: 'Proveedores', icon: <BusinessIcon />, path: '/admin/providers', adminOnly: true },
   { text: 'Usuarios', icon: <PeopleIcon />, path: '/admin/users', adminOnly: true },
+  {
+    text: 'Parámetros',
+    icon: <BiotechIcon />,
+    adminOnly: true,
+    subItems: [
+      { text: 'Instrumentos', path: '/admin/instruments' },
+      { text: 'Marcas', path: '/admin/brands' },
+      { text: 'Principios', path: '/admin/principles' },
+      { text: 'Calibraciones', path: '/admin/calibrations' },
+      { text: 'Reactivos', path: '/admin/reagents' },
+      { text: 'Estándares', path: '/admin/standards' },
+      { text: 'Temperaturas', path: '/admin/temperatures' },
+      { text: 'Longitudes de Onda', path: '/admin/wavelengths' },
+    ]
+  },
   { text: 'Configuración', icon: <SettingsIcon />, path: '/parameters' },
   { text: 'Envío de Resultados', icon: <ScienceIcon />, path: '/results' },
   { text: 'Estadísticas', icon: <AssessmentIcon />, path: '/statistics' },
@@ -55,6 +74,7 @@ const Layout = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const [mobileOpen, setMobileOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
+  const [parametersOpen, setParametersOpen] = useState(false);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -122,22 +142,46 @@ const Layout = () => {
         {menuItems
           .filter(item => !item.adminOnly || user?.role === 'admin')
           .map((item) => (
-            <ListItem key={item.text} disablePadding sx={{ mb: 0.5 }}>
-              <ListItemButton
-                onClick={() => handleNavigate(item.path)}
-                sx={{
-                  borderRadius: 2,
-                  '&:hover': {
-                    bgcolor: colors.grayBlue,
-                  },
-                }}
-              >
-                <ListItemIcon sx={{ color: colors.navyBlue }}>
-                  {item.icon}
-                </ListItemIcon>
-                <ListItemText primary={item.text} />
-              </ListItemButton>
-            </ListItem>
+            <React.Fragment key={item.text}>
+              <ListItem disablePadding sx={{ mb: 0.5 }}>
+                <ListItemButton
+                  onClick={() => item.subItems ? setParametersOpen(!parametersOpen) : handleNavigate(item.path)}
+                  sx={{
+                    borderRadius: 2,
+                    '&:hover': {
+                      bgcolor: colors.grayBlue,
+                    },
+                  }}
+                >
+                  <ListItemIcon sx={{ color: colors.navyBlue }}>
+                    {item.icon}
+                  </ListItemIcon>
+                  <ListItemText primary={item.text} />
+                  {item.subItems && (parametersOpen ? <ExpandLess /> : <ExpandMore />)}
+                </ListItemButton>
+              </ListItem>
+              {item.subItems && (
+                <Collapse in={parametersOpen} timeout="auto" unmountOnExit>
+                  <List component="div" disablePadding>
+                    {item.subItems.map((subItem) => (
+                      <ListItemButton
+                        key={subItem.text}
+                        onClick={() => handleNavigate(subItem.path)}
+                        sx={{
+                          pl: 4,
+                          borderRadius: 2,
+                          '&:hover': {
+                            bgcolor: colors.grayBlue,
+                          },
+                        }}
+                      >
+                        <ListItemText primary={subItem.text} />
+                      </ListItemButton>
+                    ))}
+                  </List>
+                </Collapse>
+              )}
+            </React.Fragment>
           ))}
       </List>
     </Box>
