@@ -37,6 +37,10 @@ app.use('/api/reagents', require('./routes/reagents'));
 // Phase 4: Operations Module
 app.use('/api/control-samples', require('./routes/controlSamples'));
 
+// Phase 5: Statistics and Results
+app.use('/api/laboratory-results', require('./routes/laboratoryResults'));
+app.use('/api/statistics/admin', require('./routes/statisticsAdmin'));
+
 // Health check
 app.get('/api/health', (req, res) => {
   res.json({ status: 'OK', message: 'PEEC System API is running' });

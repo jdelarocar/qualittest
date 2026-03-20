@@ -129,6 +129,19 @@ router.put('/admin/:id/generate-report', authMiddleware, async (req, res) => {
       return res.status(403).json({ message: 'Acceso denegado' });
     }
 
+    // Calculate statistics first
+    const axios = require('axios');
+    try {
+      await axios.post(
+        `${process.env.API_URL || 'http://localhost:5000'}/api/statistics/admin/shipments/${req.params.id}/calculate`,
+        {},
+        { headers: { Authorization: req.headers.authorization } }
+      );
+    } catch (statsError) {
+      console.error('Error calculating statistics:', statsError);
+      // Continue even if statistics calculation fails
+    }
+
     const [result] = await db.query(
       `UPDATE shipments
        SET report_generated = TRUE, report_generated_at = NOW(), report_generated_by = ?
@@ -152,6 +165,19 @@ router.put('/admin/:id/regenerate-report', authMiddleware, async (req, res) => {
   try {
     if (req.user.role !== 'admin') {
       return res.status(403).json({ message: 'Acceso denegado' });
+    }
+
+    // Recalculate statistics
+    const axios = require('axios');
+    try {
+      await axios.post(
+        `${process.env.API_URL || 'http://localhost:5000'}/api/statistics/admin/shipments/${req.params.id}/calculate`,
+        {},
+        { headers: { Authorization: req.headers.authorization } }
+      );
+    } catch (statsError) {
+      console.error('Error recalculating statistics:', statsError);
+      // Continue even if statistics calculation fails
     }
 
     const [result] = await db.query(
