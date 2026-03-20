@@ -35,6 +35,7 @@ import {
   ExpandLess,
   ExpandMore,
   Biotech as BiotechIcon,
+  LocalShipping as ShippingIcon,
 } from '@mui/icons-material';
 import { useAuth } from '../context/AuthContext';
 import { colors } from '../theme';
@@ -62,8 +63,9 @@ const menuItems = [
       { text: 'Longitudes de Onda', path: '/admin/wavelengths' },
     ]
   },
+  { text: 'Muestras Control', icon: <BiotechIcon />, path: '/admin/control-samples', adminOnly: true },
+  { text: 'Envío de Resultados', icon: <ShippingIcon />, path: '/admin/shipments', adminOnly: true },
   { text: 'Configuración', icon: <SettingsIcon />, path: '/parameters' },
-  { text: 'Envío de Resultados', icon: <ScienceIcon />, path: '/results' },
   { text: 'Estadísticas', icon: <AssessmentIcon />, path: '/statistics' },
 ];
 

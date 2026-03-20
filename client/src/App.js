@@ -19,6 +19,8 @@ import Providers from './components/admin/Providers';
 import Users from './components/admin/Users';
 import GenericParameter from './components/admin/GenericParameter';
 import Reagents from './components/admin/Reagents';
+import ControlSamples from './components/admin/ControlSamples';
+import ShipmentsAdmin from './components/admin/ShipmentsAdmin';
 
 // Protected Route Component
 const ProtectedRoute = ({ children }) => {
@@ -95,6 +97,8 @@ function App() {
               <Route path="admin/temperatures" element={<GenericParameter title="Temperaturas" apiEndpoint="temperatures" fieldName="value" fieldLabel="Valor" />} />
               <Route path="admin/wavelengths" element={<GenericParameter title="Longitudes de Onda" apiEndpoint="wavelengths" fieldName="value" fieldLabel="Valor" />} />
               <Route path="admin/reagents" element={<Reagents />} />
+              <Route path="admin/control-samples" element={<ControlSamples />} />
+              <Route path="admin/shipments" element={<ShipmentsAdmin />} />
             </Route>
 
             {/* Fallback */}
