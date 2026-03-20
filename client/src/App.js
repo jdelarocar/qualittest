@@ -11,6 +11,8 @@ import Layout from './components/Layout';
 import Dashboard from './components/Dashboard';
 import Parameters from './components/Parameters';
 import ResultsEntry from './components/ResultsEntry';
+import ResultsSubmission from './components/ResultsSubmission';
+import MyStatistics from './components/MyStatistics';
 import Statistics from './components/Statistics';
 import RegistrationRequest from './components/public/RegistrationRequest';
 import RequestsList from './components/admin/RequestsList';
@@ -83,7 +85,8 @@ function App() {
               <Route path="dashboard" element={<Dashboard />} />
               <Route path="parameters" element={<Parameters />} />
               <Route path="results" element={<Dashboard />} />
-              <Route path="results/:shipmentId" element={<ResultsEntry />} />
+              <Route path="results/:shipmentId" element={<ResultsSubmission />} />
+              <Route path="statistics/:shipmentId" element={<MyStatistics />} />
               <Route path="statistics" element={<Statistics />} />
               <Route path="admin/requests" element={<RequestsList />} />
               <Route path="admin/participation-options" element={<ParticipationOptions />} />

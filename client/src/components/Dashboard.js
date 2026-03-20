@@ -17,13 +17,13 @@ import {
   AccessTime as AccessTimeIcon,
 } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
-import { programAPI, shipmentAPI } from '../services/api';
+import axios from 'axios';
 import { colors } from '../theme';
 
 const Dashboard = () => {
   const navigate = useNavigate();
   const [programs, setPrograms] = useState([]);
-  const [openShipments, setOpenShipments] = useState([]);
+  const [availableShipments, setAvailableShipments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
@@ -34,13 +34,19 @@ const Dashboard = () => {
   const loadData = async () => {
     try {
       setLoading(true);
+      const token = localStorage.getItem('token');
+
       const [programsRes, shipmentsRes] = await Promise.all([
-        programAPI.getAll(),
-        shipmentAPI.getAll({ status: 'open' }),
+        axios.get(`${process.env.REACT_APP_API_URL}/programs`, {
+          headers: { Authorization: `Bearer ${token}` }
+        }),
+        axios.get(`${process.env.REACT_APP_API_URL}/laboratory-results/shipments/available`, {
+          headers: { Authorization: `Bearer ${token}` }
+        })
       ]);
 
       setPrograms(programsRes.data);
-      setOpenShipments(shipmentsRes.data);
+      setAvailableShipments(shipmentsRes.data);
     } catch (err) {
       setError('Error al cargar datos');
       console.error(err);
@@ -122,28 +128,28 @@ const Dashboard = () => {
                 <AssessmentIcon sx={{ fontSize: 40, opacity: 0.8 }} />
               </Box>
               <Typography variant="h4" fontWeight="bold">
-                {openShipments.length}
+                {availableShipments.length}
               </Typography>
               <Typography variant="body2" sx={{ opacity: 0.9 }}>
-                Envíos Abiertos
+                Envíos Disponibles
               </Typography>
             </CardContent>
           </Card>
         </Grid>
       </Grid>
 
-      {/* Open Shipments */}
+      {/* Available Shipments */}
       <Typography variant="h5" gutterBottom fontWeight="600" sx={{ mb: 2 }}>
-        Envíos Abiertos
+        Envíos Disponibles
       </Typography>
 
-      {openShipments.length === 0 ? (
+      {availableShipments.length === 0 ? (
         <Alert severity="info">
-          No hay envíos abiertos en este momento.
+          No hay envíos disponibles en este momento.
         </Alert>
       ) : (
         <Grid container spacing={3}>
-          {openShipments.map((shipment) => (
+          {availableShipments.map((shipment) => (
             <Grid item xs={12} md={6} lg={4} key={shipment.id}>
               <Card>
                 <CardContent>
@@ -159,26 +165,30 @@ const Dashboard = () => {
                     />
                     <Chip
                       icon={<AccessTimeIcon />}
-                      label={getDaysLeft(shipment.end_date)}
+                      label={getDaysLeft(shipment.max_reception_date)}
                       size="small"
-                      color={getStatusColor(shipment.end_date)}
+                      color={getStatusColor(shipment.max_reception_date)}
                     />
                   </Box>
 
                   <Typography variant="h6" gutterBottom fontWeight="600">
-                    {shipment.name}
+                    {shipment.description}
                   </Typography>
 
                   <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
-                    Muestra: {shipment.sample_number}
+                    Muestra: {shipment.control_sample_name}
+                  </Typography>
+
+                  <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+                    Período: {shipment.year}/{String(shipment.month).padStart(2, '0')}
                   </Typography>
 
                   <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
                     Fecha límite:{' '}
-                    {new Date(shipment.end_date).toLocaleDateString('es-GT')}
+                    {new Date(shipment.max_reception_date).toLocaleDateString('es-GT')}
                   </Typography>
 
-                  {shipment.has_results ? (
+                  {shipment.has_submitted ? (
                     <Box sx={{ display: 'flex', alignItems: 'center', color: colors.green, mb: 2 }}>
                       <CheckCircleIcon sx={{ mr: 1 }} />
                       <Typography variant="body2">
@@ -196,7 +206,7 @@ const Dashboard = () => {
                     variant="contained"
                     onClick={() => navigate(`/results/${shipment.id}`)}
                   >
-                    {shipment.has_results ? 'Ver Resultados' : 'Enviar Resultados'}
+                    {shipment.has_submitted ? 'Ver/Editar Resultados' : 'Enviar Resultados'}
                   </Button>
                 </CardContent>
               </Card>
